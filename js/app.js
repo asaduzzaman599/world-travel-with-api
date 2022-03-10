@@ -11,9 +11,9 @@ const loadData =async (url) =>{
         }
 }
 
-const loadCountries =  () =>{
-    const url ='https://restcountries.com/v3.1/all';
+const loadCountries =  (url) =>{
 
+    document.getElementById('detail-container').classList.add('d-none')
     loadData(url);
 }
 
@@ -31,6 +31,7 @@ const loadDeatil= async (countryName)=>{
 }
 
 const showDetail = (country) =>{
+    document.getElementById('detail-container').classList.remove('d-none')
     const showDetail = document.getElementById('show-detail');
     console.log(country);
     showDetail.textContent='';
@@ -39,21 +40,24 @@ const showDetail = (country) =>{
     <img src="${country.flags.png}" class="card-img-top" alt="${country.name.common} Flag">
         <div class="card-body">
           <h5 class="card-title">${country.name.common}</h5>
-         <div class="d-flex justify-content-between">
-         <p class="card-text">Capital: ${country.capital}
-         <p class="card-text">Region: ${country.region}
-         <p class="card-text">Population: ${country.population}
+         <div class="d-flex flex-column justify-content-between">
+         <p class="card-text"><b>Capital:</b>  ${country.capital}
+         <p class="card-text"><b>Region: </b> ${country.region}
+         <p class="card-text"><b>Population:</b> ${country.population}
          </p>
          </div>
          <div class="d-flex justify-content-between">
-         <p class="card-text">Independent: ${country.independent}
+         <p class="card-text"><b>Independent:</b> ${country.independent}</p>
          
          </div>
         </div>
     `
 }
-
-loadCountries();
+const loadHomeData = () =>{
+    const url ='https://restcountries.com/v3.1/all';
+    loadCountries(url);
+}
+loadHomeData()
 
 const displayCountries = (countries) =>{
     const countryDiv = document.getElementById('country-div');
@@ -83,4 +87,9 @@ const searchCountry = ()=> {
     
     loadData(url);
 
+}
+
+const regionCountries= (region) =>{
+    url = `https://restcountries.com/v3.1/region/${region}`;
+    loadCountries(url)
 }
